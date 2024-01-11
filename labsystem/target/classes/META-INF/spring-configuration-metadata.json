@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "config.jwt",
+      "type": "lzj.jsu.labsystem.config.JwtConfig",
+      "sourceType": "lzj.jsu.labsystem.config.JwtConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "config.jwt.expire",
+      "type": "java.lang.Long",
+      "sourceType": "lzj.jsu.labsystem.config.JwtConfig"
+    },
+    {
+      "name": "config.jwt.header",
+      "type": "java.lang.String",
+      "sourceType": "lzj.jsu.labsystem.config.JwtConfig"
+    },
+    {
+      "name": "config.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "lzj.jsu.labsystem.config.JwtConfig"
+    }
+  ],
+  "hints": []
+}

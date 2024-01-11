@@ -1,0 +1,25 @@
+
+server:
+  port: 5000
+  
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lab_system
+    username: root
+    password: 1234
+
+  mvc:
+    static-path-pattern: /static/**
+
+mybatis:
+  mapper-locations:  classpath:mapper/*Mapper.xml
+
+  main:
+    web-application-type: none
+
+config:
+  jwt:
+    secret: kerwin_any_code
+    expire: 3600
+    header: token

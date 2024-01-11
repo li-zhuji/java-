@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lzj.jsu.labsystem.dao.UserMapper">
+    <select id="getUserList" resultMap="result">
+        SELECT
+            id,username,roleId,is_default
+        FROM  users
+        <where>
+            <if test="username!=null">
+                and username = #{username}
+            </if>
+            <if test="password!=null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="result" type="lzj.jsu.labsystem.pojo.User">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="roleId" property="roleId"></result>
+        <result column="is_default" property="is_default"></result>
+        <association property="role" select="getRole" column="roleId" javaType="lzj.jsu.labsystem.pojo.Role">
+        <!--Mybatis 一对一，使用 association 标签-->
+        <!--Mybatis 一对多，使用 collection 标签-->
+        <!--这里为什么要用association呢，首先它需要用到两个不同类的对象，这个标签的涵意就是收集，把另一个对象的值给收集起来-->
+        </association>
+    </resultMap>
+
+    <select id="getRole" resultType="lzj.jsu.labsystem.pojo.Role">
+        SELECT *
+        FROM roles
+        where id = #{any_id}
+    </select>
+
+
+    <insert id="addUserList" parameterType="lzj.jsu.labsystem.pojo.User">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="roleId!=null">
+                roleId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                #{username},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="roleId!=null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateUserList">
+        update users
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="password!=null">
+                password = #{password},
+            </if>
+            <if test="roleId!=null">
+                roleId = #{roleId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserList">
+        delete from users where id = #{id}
+    </delete>
+</mapper>

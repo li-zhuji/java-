@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lzj.jsu.labsystem.dao.LabMapper">
+
+    <select id="getLabList" resultType="lzj.jsu.labsystem.pojo.Lab">
+        SELECT *
+        FROM labs
+        ORDER BY id ASC
+    </select>
+
+<!--    resultType代表返回值类型-->
+<!--    parameterType代表要传给数据库的类型-->
+    <insert id="addLabList" parameterType="lzj.jsu.labsystem.pojo.Lab">
+        insert into labs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+--             代表前缀是（后缀是），把逗号给剔除掉
+            <if test="title!=null">
+                title,
+            </if>
+            <if test="capacity!=null">
+                capacity,
+            </if>
+            <if test="lab_type!=null">
+                lab_type,
+            </if>
+            <if test="college_type!=null">
+                college_type,
+            </if>
+            <if test="x!=null">
+                x,
+            </if>
+            <if test="y!=null">
+                y,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title!=null">
+                #{title},
+            </if>
+            <if test="capacity!=null">
+                #{capacity},
+            </if>
+            <if test="lab_type!=null">
+                #{lab_type},
+            </if>
+            <if test="college_type!=null">
+                #{college_type},
+            </if>
+            <if test="x!=null">
+                #{x},
+            </if>
+            <if test="y!=null">
+                #{y},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateLabList">
+        update labs
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="capacity!=null">
+                capacity = #{capacity},
+            </if>
+            <if test="lab_type!=null">
+                lab_type =  #{lab_type},
+            </if>
+            <if test="college_type!=null">
+                college_type =  #{college_type},
+            </if>
+            <if test="x!=null">
+                x = #{x},
+            </if>
+            <if test="y!=null">
+                y = #{y},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLabList">
+        delete from
+        labs
+        where id = #{id}
+    </delete>
+</mapper>

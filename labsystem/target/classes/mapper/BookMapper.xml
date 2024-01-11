@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lzj.jsu.labsystem.dao.BookMapper">
+    <insert id="addBookList" parameterType="lzj.jsu.labsystem.pojo.Book">
+        insert into books
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lab_id!=null">
+                lab_id,
+            </if>
+            <if test="book_time!=null">
+                book_time,
+            </if>
+            <if test="book_class!=null">
+                book_class,
+            </if>
+            <if test="book_reason!=null">
+                book_reason,
+            </if>
+            <if test="book_username!=null">
+                book_username,
+            </if>
+            <if test="book_state!=null">
+                book_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lab_id!=null">
+                #{lab_id},
+            </if>
+            <if test="book_time!=null">
+                #{book_time},
+            </if>
+            <if test="book_class!=null">
+                #{book_class},
+            </if>
+            <if test="book_reason!=null">
+                #{book_reason},
+            </if>
+            <if test="book_username!=null">
+                #{book_username},
+            </if>
+            <if test="book_state!=null">
+                #{book_state},
+            </if>
+        </trim>
+    </insert>
+
+
+    <resultMap id="result" type="lzj.jsu.labsystem.pojo.Book">
+        <id column="id" property="id"></id>
+        <result column="lab_id" property="lab_id"></result>
+        <result column="book_time" property="book_time"></result>
+        <result column="book_class" property="book_class"></result>
+        <result column="book_reason" property="book_reason"></result>
+        <result column="book_state" property="book_state"></result>
+        <result column="book_username" property="book_username"></result>
+        <association property="lab" javaType="lzj.jsu.labsystem.pojo.Lab"
+        select="getLab" column="lab_id"
+        ></association>
+    </resultMap>
+    <select id="getLab" resultType="lzj.jsu.labsystem.pojo.Lab">
+        select * from labs
+        where id = #{any_id}
+    </select>
+
+<!--    这一段就是返回哪些时间，哪几节课是被禁用的，result就是因为这个里面有需要别的类的信息，在预约列表中需要用到，所以返回值需要用到resultMap-->
+<!--    这几个if对应着不同的模块-->
+
+    <select id="getBookList" resultMap="result">
+        select *
+        from books
+        <where>
+            <if test="book_username!=null and book_username!=''">
+                and book_username = #{book_username}
+            </if>
+            <if test="lab_id!=null and lab_id!=''">
+                and lab_id = #{lab_id}
+            </if>
+            <if test="book_state!=null">
+                and book_state = #{book_state}
+                and book_time >= curdate()
+            </if>
+            <if test="book_time!=null">
+                and book_time = #{book_time}
+                and book_state !=2
+            </if>
+        </where>
+        order by book_time , book_class ASC
+    </select>
+
+    <delete id="deleteBookList">
+        delete from books
+        where id = #{id}
+    </delete>
+
+
+    <update id="updateBookList">
+        update books
+        <set>
+            <if test="book_state!=null">
+                book_state=#{book_state}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
