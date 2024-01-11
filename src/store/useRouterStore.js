@@ -1,7 +1,3 @@
-/*
- * @作者: kerwin
- */
-
 //pinia
 import { defineStore } from "pinia";
 import { ref } from "vue";

@@ -1,6 +1,3 @@
-<!--
- * @作者: kerwin
--->
 <template>
   <el-aside width="200px">
     <el-scrollbar>

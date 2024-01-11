@@ -1,13 +1,10 @@
-<!--
- * @作者: kerwin
--->
 <template>
   <div>
     <el-table :data="tableData" style="width: 100%" row-key="path">
       <el-table-column prop="title" label="权限名称" width="180" />
       <!-- <el-table-column prop="icon" label="图标" width="180" /> -->
 
-      <!-- 自定义 -->S
+      <!-- 自定义 -->
       <el-table-column label="图标" width="180">
         <template #default="scope">
           <div style="display: flex; align-items: center">

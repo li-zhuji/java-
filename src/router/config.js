@@ -1,6 +1,3 @@
-/*
- * @作者: kerwin
- */
 //将对应的组件进行导入
 import Home from "../views/home/Home.vue";
 // 用户管理
@@ -17,6 +14,7 @@ import AddLab from "../views/lab-manage/AddLab.vue";
 import AuditList from "../views/book-manage/AuditList.vue";
 import BookList from "../views/book-manage/BookList.vue";
 import AddBook from "../views/book-manage/AddBook.vue";
+
 const routes = [
   //固定的组件，访问哪个路径，就访问相对应的组件
   {

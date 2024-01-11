@@ -1,7 +1,5 @@
-<!--
- * @作者: kerwin
--->
 <template>
+  <!-- 引用粒子库 -->
   <Particles
     id="tsparticles"
     :particlesInit="particlesInit"
@@ -32,6 +30,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">
+          <!-- 一点击登录按钮就跳转到submitForm进行操作 -->
           登录
         </el-button>
       </el-form-item>
